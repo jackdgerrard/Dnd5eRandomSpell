@@ -12,11 +12,11 @@ let AllSpells = [];
 let ChosenSpell = ["not", "picked", "yet"];
 
 function rollDice() {
-  let Roll = Math.floor(Math.random() * maxForRoll);
-  ChosenSpell = AllSpells[Roll];
+  let roll = Math.floor(Math.random() * maxForRoll);
+  ChosenSpell = AllSpells[roll];
 
-  console.log("clicked, got: ", Roll);
-  document.getElementById("diceBox").innerHTML = Roll;
+  console.log("clicked, got: ", roll);
+  document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
   document.getElementById("SpellBox0").innerHTML =
     "<h2>" + ChosenSpell.name + "</h2>";
 
