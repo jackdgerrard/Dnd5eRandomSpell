@@ -12,17 +12,24 @@ let AllSpells = [];
 let ChosenSpell = ["not", "picked", "yet"];
 
 function rollDice() {
+  let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
+  document.getElementById("historyContainer").innerHTML+=`<p> ${currentSpellAndLevel} </p>`;
+  document.getElementById("SpellBox0").innerHTML = '';
+
   let roll = Math.floor(Math.random() * maxForRoll);
+
   ChosenSpell = AllSpells[roll];
 
   console.log("clicked, got: ", roll);
   document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
 
-  FetchSpecificSpell(BASE_URL, ChosenSpell.index);
+  FetchSpecificSpell(ChosenSpell.index);
 }
 
-async function FetchSpecificSpell(urlstring, spellIndex) {
-  const response = await fetch(urlstring + "Spells/" + spellIndex);
+async function FetchSpecificSpell(spellIndex) {
+
+
+  const response = await fetch(BASE_URL+"Spells/"+spellIndex);
   const spell = await response.json();
   console.log(spell);
 

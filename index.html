@@ -13,19 +13,24 @@
     </header>
     
 
+
     <h3> Press the button for a random spell from <a href="http://www.dnd5eapi.co"> dnd 5e API </a> </h3>
 
     <button type="button"  id="getRandomSpellButton" > Roll dice </button>
 
-    <div id="flexContainer" class="container-fluid">
+    <div id="RollContainer" class="container-fluid">
         <span id="diceBox"><p>~</p></span>
         <span id="SpellBox0" class="SpellBox"><p>~</p></span>
         <div id="SpellsListContainer" class="SpellBox" class="container-fluid">
             <h2>Available Spells: </h2> 
-            
             <ul id="AllSpellsBox">... fetching spells</ul>
         </div>
     </div>
+
+    <div id="historyContainer">
+        <h2>History: </h2>
+    </div>
+    
     
 <script src="js/main.js"></script>
 <noscript>Sorry, your browser does not support JavaScript!</noscript>
