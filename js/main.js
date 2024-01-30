@@ -26,31 +26,42 @@ async function FetchSpecificSpell(urlstring, spellIndex) {
   const spell = await response.json();
   console.log(spell);
 
-  document.getElementById("SpellBox0").innerHTML+=`
-    <h2>${spell.name} at level ${Math.floor(Math.random() * 10) + spell.level}</h2>
-    
+  document.getElementById("SpellBox0").innerHTML += `
+    <h2>${spell.name} at level ${
+      Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
+  }</h2>
+    <p>Range: ${spell.range}</p>
+    <p>Duration: ${spell.duration}</p>
+    <p>School: ${spell.school.name} </p>
+    <p>Spell level: ${spell.level} </p>
+    <p>Description: ${spell.desc}</p>
+    <p>Higher Level: ${spell.higher_level}</p>
+    <hr>
     `;
 
-  Object.entries(spell).forEach(([key, value]) => {
-    document.getElementById("SpellBox0").innerHTML+=`
-    <p> ${key}: ${value} </p>
-    
-    
-    `;
+  //some of these need to be found and printed or they throw errors when not present
+  Object.entries(AllSpells).forEach(([key, value]) => {
+    if (key == "damage") {
+      document.getElementById("SpellBox0").innerHTML += `
+          <p>Damage ${value.damage_at_slot_level}</p>
+          <p>${value.damage_type}</p>
+        `;
+    }
   });
 }
 
-window.onload = async() => {
+window.onload = async () => {
   const response = await fetch(BASE_URL + "Spells");
   const AllSpellsJson = await response.json();
-  AllSpells = AllSpellsJson.results
+  AllSpells = AllSpellsJson.results;
   //console.log(AllSpells)
 
-  document.getElementById("AllSpellsBox").innerHTML=``;
+  document.getElementById("AllSpellsBox").innerHTML = ``;
   Object.entries(AllSpells).forEach(([key, value]) => {
-    document.getElementById("AllSpellsBox").innerHTML+=`<li> ${key} ${value.name} </li>`;
+    document.getElementById(
+      "AllSpellsBox"
+    ).innerHTML += `<li> ${key} ${value.name} </li>`;
   });
-
 
   //assign functions to buttons
   document
