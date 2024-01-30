@@ -17,19 +17,26 @@ function rollDice() {
 
   console.log("clicked, got: ", roll);
   document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
-  document.getElementById("SpellBox0").innerHTML =
-    "<h2>" + ChosenSpell.name + "</h2>";
 
   FetchSpecificSpell(BASE_URL, ChosenSpell.index);
 }
 
 async function FetchSpecificSpell(urlstring, spellIndex) {
   const response = await fetch(urlstring + "Spells/" + spellIndex);
-  const Spell = await response.json();
-  console.log(Spell);
+  const spell = await response.json();
+  console.log(spell);
 
-  Object.entries(Spell).forEach(([key, value]) => {
-    document.getElementById("SpellBox0").innerHTML+=`<p> ${key}: ${value} </p>`;
+  document.getElementById("SpellBox0").innerHTML+=`
+    <h2>${spell.name} at level ${Math.floor(Math.random() * 10) + spell.level}</h2>
+    
+    `;
+
+  Object.entries(spell).forEach(([key, value]) => {
+    document.getElementById("SpellBox0").innerHTML+=`
+    <p> ${key}: ${value} </p>
+    
+    
+    `;
   });
 }
 
