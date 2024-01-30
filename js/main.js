@@ -33,22 +33,17 @@ async function FetchSpecificSpell(urlstring, spellIndex) {
   });
 }
 
-window.onload = () => {
-  //none async await method
-  fetch(BASE_URL + "Spells")
-    .then((response) => response.json())
-    .then((data) => AllSpells.push(...data.results))
-    .finally(
-      (document.getElementById(
-        "AllSpellsBox"
-      ).innerHTML = `<ul>${AllSpells}</ul>`)
-    );
+window.onload = async() => {
+  const response = await fetch(BASE_URL + "Spells");
+  const AllSpellsJson = await response.json();
+  AllSpells = AllSpellsJson.results
+  //console.log(AllSpells)
 
-  /* AllSpells.forEach( (index, name, url) => {
-    document.getElementById("AllSpellsBox").innerHTML+= "<p>"+ index, name+"</p>";
+  document.getElementById("AllSpellsBox").innerHTML=``;
+  Object.entries(AllSpells).forEach(([key, value]) => {
+    document.getElementById("AllSpellsBox").innerHTML+=`<li> ${key} ${value.name} </li>`;
   });
 
-  */
 
   //assign functions to buttons
   document
