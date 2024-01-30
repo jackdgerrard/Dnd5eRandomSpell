@@ -9,15 +9,30 @@
 <body>
     <h2> Press the button for a random spell from <a href="dnd5eapi.co"> dnd 5e API </a> </h2>
 
-    <input type="button" value="" id="getRandomSpellButton">
+    <button type="button" value="" id="getRandomSpellButton"> Roll dice </button>
 
-    <p id="dicebox">~</p>
+    <div id="flexContainer">
+        <p id="dicebox">~</p>
 
-    <p id="AllSpellsBox" class="SpellBox"></p>
+        <p id="AllSpellsBox" class="SpellBox"> ... fetching spells</p>
+    </div>
     
 <script>
 
 let Spells = null;
+//unused for now
+let min = 0;
+//maximum number for the roll
+let maxForRoll = 318;
+
+function getRandomInt(maxForRoll) {
+  return Math.floor(Math.random() * maxForRoll);
+}
+
+function RollDice(){
+    let Roll = getRandomInt();
+    document.getElementById("diceBox").innerHTML=Roll;
+}
 
 function getAllSpells(){
     const response = await fetch("https://www.dnd5eapi.co/api/Spells");
