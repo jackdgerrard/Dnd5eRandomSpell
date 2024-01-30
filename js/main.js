@@ -41,7 +41,7 @@ window.onload = async() => {
 
   document.getElementById("AllSpellsBox").innerHTML=``;
   Object.entries(AllSpells).forEach(([key, value]) => {
-    document.getElementById("AllSpellsBox").innerHTML+=`<li> ${key} ${value.name} </li>`;
+    document.getElementById("AllSpellsBox").innerHTML+=`<li> ${key+1} ${value.name} </li>`;
   });
 
 
