@@ -4,37 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Random Spell Button</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
     <header class="container-fluid">
-        <a href="https://github.com/jackdgerrard/Dnd5eRandomSpell" alt="GitHub">GitHub</a>
         <h1> Random DnD 5e spell</h1>
     </header>
 
-    <div id="searchBoxWrapper" class="container-fluid">
-        <input type="text" id="searchBox"> Search for spells </div>
+    <section id="searchBoxWrapper">
+        <input type="text" id="searchBox"> Search for spells </section>
         <ul id="suggestions"></ul>
-    </div>
+    </section>
 
-    <h3> Press the button for a random spell from <a href="http://www.dnd5eapi.co"> dnd 5e API </a> </h3>
-
-    <button type="button"  id="getRandomSpellButton" > Roll dice </button>
-
-    <div id="RollContainer" class="container-fluid">
+    <section id="RollContainer">
+        <h3> Random spell </h3>
+        <p> Press the button for a random spell from <a href="http://www.dnd5eapi.co" alt="API Link"> dnd 5e API </a></p>
+        <button type="button"  id="getRandomSpellButton" > Roll dice </button>
         <span id="diceBox"><p>~</p></span>
         <span id="SpellBox0" class="SpellBox"></span>
-        <div id="SpellsListContainer" class="SpellBox" class="container-fluid">
-            <h2>Available Spells: </h2> 
-            <ul id="AllSpellsBox">... fetching spells</ul>
-        </div>
-    </div>
+    </section>
 
-    <div id="historyContainer">
+    <section id="SpellsListContainer" class="SpellBox" >
+        <h2>Available Spells: </h2> 
+        <ul id="AllSpellsBox">... fetching spells</ul>
+    </section>
+
+    <section id="historyContainer">
         <h2>History: </h2>
-    </div>
+    </section>
     
-    
+    <footer>
+        <a href="https://github.com/jackdgerrard/Dnd5eRandomSpell" alt="GitHub">GitHub</a>
+    </footer>
 <script src="js/main.js"></script>
 <noscript>Sorry, your browser does not support JavaScript!</noscript>
 
