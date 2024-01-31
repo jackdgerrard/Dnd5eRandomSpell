@@ -8,7 +8,7 @@ At the moment this doesn't display damage or healing variables as it causes erro
 
 I want to add a search bar here to so it can be used as a reference, because the party I play with has a few magic users and we often have to pause the game to go find details of a spell in the PHB. 
 
-Many thanks to the awesome API providers for this. 
+Many thanks to the awesome API providers for this with no authentication requirements.
 
 
 Code formatting is done with [prettier](https://prettier.io/), as  [MDN web docs](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript#operators) do. 
