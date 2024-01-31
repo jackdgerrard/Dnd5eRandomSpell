@@ -18,18 +18,17 @@ function rollDice() {
 
 // uses fetch to get the JSON of a specific spell and add it as a dom element in 'SpellBox0'
 async function FetchSpecificSpell(spellIndex) {
+
+  const spellBox = document.getElementById("SpellBox0");
+  const historyContainer = document.getElementById("historyContainer");
+  let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
+  const response = await fetch(API_ENDPOINT + spellIndex);
+  const spell = await response.json();
+
   try {
-    const response = await fetch(API_ENDPOINT + spellIndex);
-    const spell = await response.json();
-    console.log(spell);
-
-    let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
-  
-  document.getElementById(
-    "historyContainer"
-  ).innerHTML += `<p> ${currentSpellAndLevel} </p>`;
-
-    document.getElementById("SpellBox0").innerHTML += `
+    historyContainer.innerHTML += `<p> ${currentSpellAndLevel} </p>`;
+    spellBox.innerHTML = `
+    <div class="spellCard">
     <h2>${spell.name} at level ${
       Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
     }</h2>
@@ -39,13 +38,12 @@ async function FetchSpecificSpell(spellIndex) {
     <p>Spell level: ${spell.level} </p>
     <p>Description: ${spell.desc}</p>
     <p>Higher Level: ${spell.higher_level}</p>
-    <hr>
     `;
 
     //some of these need to be found and printed or they throw errors when not present WIP - need to expand on the nested objects
     Object.entries(spell).forEach(([key, value]) => {
       if (key == "damage") {
-        document.getElementById("SpellBox0").innerHTML += `
+        spellBox.innerHTML += `
           <h3>Damage: </h3>
           <p>Damage per spell slot level: ${JSON.stringify(
             value.damage_at_slot_level
@@ -54,8 +52,10 @@ async function FetchSpecificSpell(spellIndex) {
             value.damage_at_character_level
           )} </p>
           <p>Damage Type: ${value.damage_type.name}</p>
-          <hr>
         `;
+          }
+      else{
+        spellBox.innerHTML+=`</div>`
       }
     });
   } catch (error) {
