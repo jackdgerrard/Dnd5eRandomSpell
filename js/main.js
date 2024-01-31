@@ -9,7 +9,7 @@ let ChosenSpell = [];
 
 //simulates a 'dice roll' with chances of 0 to allSpells length
 function rollDice() {
-  console.log(maxForRoll)
+  console.log(maxForRoll);
   let roll = Math.floor(Math.random() * maxForRoll);
   console.log("clicked, got: ", roll);
   document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
@@ -17,32 +17,37 @@ function rollDice() {
 }
 
 // uses fetch to get the JSON of a specific spell and add it as a dom element in 'SpellBox0'
+//will move the dom rendering part to a new function soon
 async function FetchSpecificSpell(spellIndex) {
-
   const spellBox = document.getElementById("SpellBox0");
   const historyContainer = document.getElementById("historyContainer");
-  let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
 
-  
+  let response;
+  let spell;
 
   try {
-    const response = await fetch(API_ENDPOINT + spellIndex);
-    const spell = await response.json();
+    response = await fetch(API_ENDPOINT + spellIndex);
+    spell = await response.json();
+  } catch (error) {
+    console.error(error);
+  }
 
-    console.log(spell);
-  
-    historyContainer.innerHTML += `<p> ${currentSpellAndLevel} </p>`;
+
+    //move current spellcard dom element to the history section
+    historyContainer.innerHTML += `<p> ${spellBox.innerHTML} </p>`;
+
+    //build a spellcard div dom element
     spellBox.innerHTML = `
-    <div class="spellCard">
-    <h2>${spell.name} at level ${
+    <article class="spellCard">
+      <h2>${spell.name} at level ${
       Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
     }</h2>
-    <p>Range: ${spell.range}</p>
-    <p>Duration: ${spell.duration}</p>
-    <p>School: ${spell.school.name} </p>
-    <p>Spell level: ${spell.level} </p>
-    <p>Description: ${spell.desc}</p>
-    <p>Higher Level: ${spell.higher_level}</p>
+      <p>Range: ${spell.range}</p>
+      <p>Duration: ${spell.duration}</p>
+      <p>School: ${spell.school.name} </p>
+      <p>Spell level: ${spell.level} </p>
+      <p>Description: ${spell.desc}</p>
+      <p>Higher Level: ${spell.higher_level}</p>
     `;
 
     //some of these need to be found and printed or they throw errors when not present WIP - need to expand on the nested objects
@@ -55,25 +60,20 @@ async function FetchSpecificSpell(spellIndex) {
           )}</p>
           <p>Damage at character level: ${JSON.stringify(
             value.damage_at_character_level
-          )} </p>
+          )}</p>
           <p>Damage Type: ${value.damage_type.name}</p>
         `;
-          }
-          if (key == "heal_at_slot_level") {
-            spellBox.innerHTML += `
-          <h3>Healing: </h3>
-          <p>Healing per spell slot level: ${JSON.stringify(
-            value
-          )}</p>
+      }
+      if (key == "heal_at_slot_level") {
+        spellBox.innerHTML += `
+            <h3>Healing: </h3>
+            <p>Healing per spell slot level: ${JSON.stringify(value)}</p>
         `;
-          }
-      else{
-        spellBox.innerHTML+=`</div>`
       }
     });
-  } catch (error) {
-    console.error(error);
-  }
+    //close the spellcard div - not sure why it's being closed before line 48 runs
+    spellBox.innerHTML += `</article> <!--close spellcard -->`;
+
 }
 
 //searchbox functions
@@ -88,21 +88,19 @@ function findMatches(wordToMatch, list) {
 function displayMatches() {
   const matchArray = findMatches(this.value, ALL_SPELLS);
   const SuggestionBox = document.getElementById("suggestions");
-  SuggestionBox.innerHTML = '';
+  SuggestionBox.innerHTML = "";
 
   Object.entries(matchArray).forEach(([key, value]) => {
     SuggestionBox.innerHTML += `<li onclick="FetchSpecificSpell('${value.url}')">  ${value.name} </li>`;
   });
-
 }
-
 
 // entry point, when window is loaded
 window.onload = async () => {
   // DOM element for the 'Available spells'.
   const ALL_SPELLS_BOX = document.getElementById("AllSpellsBox");
 
-  //get all the spells from the 
+  //get all the spells from the
   try {
     const response = await fetch(API_ENDPOINT + "/api/spells");
     const allSpellsJson = await response.json();
@@ -111,15 +109,14 @@ window.onload = async () => {
     }
   } catch (error) {
     console.error(error);
-  }
-  finally{
+  } finally {
     maxForRoll = ALL_SPELLS.length;
   }
 
   //reset the spells box and add each spell
   ALL_SPELLS_BOX.innerHTML = ``;
   Object.entries(ALL_SPELLS).forEach(([key, value]) => {
-    ALL_SPELLS_BOX.innerHTML += `<li onclick="FetchSpecificSpell('${value.url}')"> ${key} ${value.name} </li>`;
+    ALL_SPELLS_BOX.innerHTML += `<li onclick="FetchSpecificSpell('${value.url}')"> ${key} - ${value.name} </li>`;
   });
 
   //assign functions to UI elements

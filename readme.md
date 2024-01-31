@@ -10,6 +10,8 @@ I want to add a search bar here to so it can be used as a reference, because the
 
 Many thanks to the awesome API providers for this with no authentication requirements.
 
+[Normalize.css](https://necolas.github.io/normalize.css/) has been used to baseline the styles and rule out inconsistencies between browsers and devices. All styling apart from the baseline reset has been done by me.
+
 
 Code formatting is done with [prettier](https://prettier.io/), as  [MDN web docs](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript#operators) do. 
 

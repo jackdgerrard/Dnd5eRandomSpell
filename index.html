@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Random Spell Button</title>
-</head>
-<body>
-    <header class="container-fluid">
-        <h1> Random DnD 5e spell</h1>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get Random Spell Button</title>
+        <link rel="stylesheet" href="./reset.css">
+        <link rel="stylesheet" href ="./main.css">
+    </head>
+    <body>
+        <header class="container-fluid">
+            <h1> Random DnD 5e spell</h1>
+        </header>
 
-    <section id="searchBoxWrapper">
-        <input type="text" id="searchBox"> Search for spells </section>
-        <ul id="suggestions"></ul>
-    </section>
+        <section id="searchBoxWrapper">
+            <label>Search for Spells: </label>
+            <input type="text" id="searchBox"></input>
+            <ul id="suggestions"></ul>
+        </section>
 
-    <section id="RollContainer">
-        <h3> Random spell </h3>
-        <p> Press the button for a random spell from <a href="http://www.dnd5eapi.co" alt="API Link"> dnd 5e API </a></p>
-        <button type="button"  id="getRandomSpellButton" > Roll dice </button>
-        <span id="diceBox"><p>~</p></span>
-        <span id="SpellBox0" class="SpellBox"></span>
-    </section>
+        <section id="RollContainer">
+            <h3> Random spell </h3>
+            <p> Press the button for a random spell from <a href="http://www.dnd5eapi.co" alt="API Link"> dnd 5e API </a></p>
+            <button type="button"  id="getRandomSpellButton" > Roll dice </button>
+            <span id="diceBox"><p>~</p></span>
+            <span id="SpellBox0"></span>
+        </section>
 
-    <section id="SpellsListContainer" class="SpellBox" >
-        <h2>Available Spells: </h2> 
-        <ul id="AllSpellsBox">... fetching spells</ul>
-    </section>
+        <section id="SpellsListContainer" >
+            <h2>Available Spells: </h2> 
+            <ul id="AllSpellsBox">... fetching spells</ul>
+        </section>
 
-    <section id="historyContainer">
-        <h2>History: </h2>
-    </section>
-    
-    <footer>
-        <a href="https://github.com/jackdgerrard/Dnd5eRandomSpell" alt="GitHub">GitHub</a>
-    </footer>
-<script src="js/main.js"></script>
-<noscript>Sorry, your browser does not support JavaScript!</noscript>
+        <section id="historyContainer">
+            <h2>History: </h2>
+        </section>
+        
+        <footer>
+            <a href="https://github.com/jackdgerrard/Dnd5eRandomSpell" alt="GitHub">GitHub</a>
+        </footer>
 
-</body>
+        <script src="js/main.js"></script>
+        <noscript>Sorry, your browser does not support JavaScript!</noscript>
+    </body>
 </html>
