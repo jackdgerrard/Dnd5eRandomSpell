@@ -3,26 +3,17 @@ const API_ENDPOINT = "https://www.dnd5eapi.co";
 //contains all spells once fetched from API
 const ALL_SPELLS = [];
 //maximum number for the roll
-let maxForRoll = ALL_SPELLS.length;
+let maxForRoll = 0;
 //Contains one spell
 let ChosenSpell = [];
 
 //simulates a 'dice roll' with chances of 0 to allSpells length
 function rollDice() {
-  let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
-  document.getElementById(
-    "historyContainer"
-  ).innerHTML += `<p> ${currentSpellAndLevel} </p>`;
-  document.getElementById("SpellBox0").innerHTML = "<h5> RANDOM SPELL </h5>";
-
+  console.log(maxForRoll)
   let roll = Math.floor(Math.random() * maxForRoll);
-
-  ChosenSpell = ALL_SPELLS[roll];
-
   console.log("clicked, got: ", roll);
   document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
-
-  FetchSpecificSpell(ChosenSpell.url);
+  FetchSpecificSpell(ALL_SPELLS[roll].url);
 }
 
 // uses fetch to get the JSON of a specific spell and add it as a dom element in 'SpellBox0'
@@ -31,6 +22,12 @@ async function FetchSpecificSpell(spellIndex) {
     const response = await fetch(API_ENDPOINT + spellIndex);
     const spell = await response.json();
     console.log(spell);
+
+    let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
+  
+  document.getElementById(
+    "historyContainer"
+  ).innerHTML += `<p> ${currentSpellAndLevel} </p>`;
 
     document.getElementById("SpellBox0").innerHTML += `
     <h2>${spell.name} at level ${
@@ -86,10 +83,13 @@ function displayMatches() {
 
 }
 
+
+// entry point, when window is loaded
 window.onload = async () => {
   // DOM element for the 'Available spells'.
   const ALL_SPELLS_BOX = document.getElementById("AllSpellsBox");
 
+  //get all the spells from the 
   try {
     const response = await fetch(API_ENDPOINT + "/api/spells");
     const allSpellsJson = await response.json();
@@ -98,6 +98,9 @@ window.onload = async () => {
     }
   } catch (error) {
     console.error(error);
+  }
+  finally{
+    maxForRoll = ALL_SPELLS.length;
   }
 
   //reset the spells box and add each spell
