@@ -25,6 +25,7 @@ function rollDice() {
   FetchSpecificSpell(ChosenSpell.url);
 }
 
+// uses fetch to get the JSON of a specific spell and add it as a dom element in 'SpellBox0'
 async function FetchSpecificSpell(spellIndex) {
   try {
     const response = await fetch(API_ENDPOINT + spellIndex);
@@ -77,7 +78,7 @@ function findMatches(wordToMatch, list) {
 function displayMatches() {
   const matchArray = findMatches(this.value, ALL_SPELLS);
   const SuggestionBox = document.getElementById("suggestions");
-  console.log(matchArray);
+  SuggestionBox.innerHTML = '';
 
   Object.entries(matchArray).forEach(([key, value]) => {
     SuggestionBox.innerHTML += `<li onclick="FetchSpecificSpell('${value.url}')">  ${value.name} </li>`;
