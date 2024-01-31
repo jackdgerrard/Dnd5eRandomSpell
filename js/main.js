@@ -13,8 +13,10 @@ let ChosenSpell = ["not", "picked", "yet"];
 
 function rollDice() {
   let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
-  document.getElementById("historyContainer").innerHTML+=`<p> ${currentSpellAndLevel} </p>`;
-  document.getElementById("SpellBox0").innerHTML = '';
+  document.getElementById(
+    "historyContainer"
+  ).innerHTML += `<p> ${currentSpellAndLevel} </p>`;
+  document.getElementById("SpellBox0").innerHTML = "";
 
   let roll = Math.floor(Math.random() * maxForRoll);
 
@@ -27,15 +29,15 @@ function rollDice() {
 }
 
 async function FetchSpecificSpell(spellIndex) {
+  try {
+    const response = await fetch(BASE_URL + "Spells/" + spellIndex);
+    const spell = await response.json();
+    console.log(spell);
 
-
-  const response = await fetch(BASE_URL+"Spells/"+spellIndex);
-  const spell = await response.json();
-  console.log(spell);
 
   document.getElementById("SpellBox0").innerHTML += `
     <h2>${spell.name} at level ${
-      Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
+    Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
   }</h2>
     <p>Range: ${spell.range}</p>
     <p>Duration: ${spell.duration}</p>
@@ -46,8 +48,8 @@ async function FetchSpecificSpell(spellIndex) {
     <hr>
     `;
 
-  //some of these need to be found and printed or they throw errors when not present
-  Object.entries(AllSpells).forEach(([key, value]) => {
+  //some of these need to be found and printed or they throw errors when not present WIP
+  Object.entries(spell).forEach(([key, value]) => {
     if (key == "damage") {
       document.getElementById("SpellBox0").innerHTML += `
           <p>Damage ${value.damage_at_slot_level}</p>
@@ -55,13 +57,19 @@ async function FetchSpecificSpell(spellIndex) {
         `;
     }
   });
+} catch (error) {
+  console.error(error);
+}
 }
 
 window.onload = async () => {
-  const response = await fetch(BASE_URL + "Spells");
-  const AllSpellsJson = await response.json();
-  AllSpells = AllSpellsJson.results;
-  //console.log(AllSpells)
+  try {
+    const response = await fetch(BASE_URL + "Spells");
+    const AllSpellsJson = await response.json();
+    AllSpells = AllSpellsJson.results;
+  } catch (error) {
+    console.error(error);
+  }
 
   document.getElementById("AllSpellsBox").innerHTML = ``;
   Object.entries(AllSpells).forEach(([key, value]) => {
