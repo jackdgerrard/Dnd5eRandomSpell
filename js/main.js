@@ -22,10 +22,15 @@ async function FetchSpecificSpell(spellIndex) {
   const spellBox = document.getElementById("SpellBox0");
   const historyContainer = document.getElementById("historyContainer");
   let currentSpellAndLevel = document.getElementById("SpellBox0").innerHTML;
-  const response = await fetch(API_ENDPOINT + spellIndex);
-  const spell = await response.json();
+
+  
 
   try {
+    const response = await fetch(API_ENDPOINT + spellIndex);
+    const spell = await response.json();
+
+    console.log(spell);
+  
     historyContainer.innerHTML += `<p> ${currentSpellAndLevel} </p>`;
     spellBox.innerHTML = `
     <div class="spellCard">
@@ -52,6 +57,14 @@ async function FetchSpecificSpell(spellIndex) {
             value.damage_at_character_level
           )} </p>
           <p>Damage Type: ${value.damage_type.name}</p>
+        `;
+          }
+          if (key == "heal_at_slot_level") {
+            spellBox.innerHTML += `
+          <h3>Healing: </h3>
+          <p>Healing per spell slot level: ${JSON.stringify(
+            value
+          )}</p>
         `;
           }
       else{

@@ -12,3 +12,5 @@ Many thanks to the awesome API providers for this with no authentication require
 
 
 Code formatting is done with [prettier](https://prettier.io/), as  [MDN web docs](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Writing_style_guide/Code_style_guide/JavaScript#operators) do. 
+
+Feel free to reach out if you find bugs or whatnot
