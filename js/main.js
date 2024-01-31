@@ -9,7 +9,6 @@ let ChosenSpell = [];
 
 //simulates a 'dice roll' with chances of 0 to allSpells length
 function rollDice() {
-  console.log(maxForRoll);
   let roll = Math.floor(Math.random() * maxForRoll);
   console.log("clicked, got: ", roll);
   document.getElementById("diceBox").innerHTML = `You rolled: ${roll}`;
@@ -32,16 +31,15 @@ async function FetchSpecificSpell(spellIndex) {
     console.error(error);
   }
 
+  //move current spellcard dom element to the history section
+  historyContainer.innerHTML += `<p> ${spellBox.innerHTML} </p>`;
 
-    //move current spellcard dom element to the history section
-    historyContainer.innerHTML += `<p> ${spellBox.innerHTML} </p>`;
-
-    //build a spellcard div dom element
-    spellBox.innerHTML = `
+  //build a spellcard div dom element
+  spellBox.innerHTML = `
     <article class="spellCard">
       <h2>${spell.name} at level ${
-      Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
-    }</h2>
+    Math.floor(Math.random() * (9 - spell.level + 1)) + spell.level
+  }</h2>
       <p>Range: ${spell.range}</p>
       <p>Duration: ${spell.duration}</p>
       <p>School: ${spell.school.name} </p>
@@ -50,10 +48,10 @@ async function FetchSpecificSpell(spellIndex) {
       <p>Higher Level: ${spell.higher_level}</p>
     `;
 
-    //some of these need to be found and printed or they throw errors when not present WIP - need to expand on the nested objects
-    Object.entries(spell).forEach(([key, value]) => {
-      if (key == "damage") {
-        spellBox.innerHTML += `
+  //some of these need to be found and printed or they throw errors when not present WIP - need to expand on the nested objects
+  Object.entries(spell).forEach(([key, value]) => {
+    if (key == "damage") {
+      spellBox.innerHTML += `
           <h3>Damage: </h3>
           <p>Damage per spell slot level: ${JSON.stringify(
             value.damage_at_slot_level
@@ -63,17 +61,16 @@ async function FetchSpecificSpell(spellIndex) {
           )}</p>
           <p>Damage Type: ${value.damage_type.name}</p>
         `;
-      }
-      if (key == "heal_at_slot_level") {
-        spellBox.innerHTML += `
+    }
+    if (key == "heal_at_slot_level") {
+      spellBox.innerHTML += `
             <h3>Healing: </h3>
             <p>Healing per spell slot level: ${JSON.stringify(value)}</p>
         `;
-      }
-    });
-    //close the spellcard div - not sure why it's being closed before line 48 runs
-    spellBox.innerHTML += `</article> <!--close spellcard -->`;
-
+    }
+  });
+  //close the spellcard div - not sure why it's being closed before line 48 runs
+  spellBox.innerHTML += `</article> <!--close spellcard -->`;
 }
 
 //searchbox functions
